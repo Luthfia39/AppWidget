@@ -55,4 +55,12 @@
             android:layout_height="wrap_content"
             style="@style/AppWidgetText" />
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppWidgetButton"
+        android:layout_below="@+id/section_update"
+        android:layout_centerHorizontal="true"
+        android:text="UPDATE"/>
 </RelativeLayout>

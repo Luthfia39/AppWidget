@@ -1,8 +1,10 @@
 package com.example.appwidget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
@@ -37,6 +39,17 @@ public class NewWidget extends AppWidgetProvider {
 
         String dateString = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
         views.setTextViewText(R.id.appwidget_update, String.valueOf(dateString));
+
+//        update sama seperti mengirim broadcast yaitu dengan intent
+//        jika melakukan update maka id dan jam akan berubah. Jam mengikuti waktu ketika update
+        Intent intentUpdate = new Intent(context, NewWidget.class);
+        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int [] idArray = new int[] {appWidgetId};
+        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intentUpdate,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        views.setOnClickPendingIntent(R.id.btn_update, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
